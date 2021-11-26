@@ -4,3 +4,38 @@
 var currentDayElement = document.getElementById('currentDay');
 var currentDate = moment().format('MMMM Do YYYY');
 currentDayElement.innerHTML = currentDate;
+
+
+// var tasks = document.getElementById('taskArea')
+// tasksfunction()
+
+// task text was clicked
+$(".taskArea").on("click", "p", function() {
+  console.log("area was clicked")
+  // get current text of p element
+  var text = $(this)
+    .text()
+    .trim();
+
+  // replace p element with a new textarea
+  var textInput = $("<textarea>").addClass("newTask").val(text);
+  $(this).replaceWith(textInput);
+
+  // auto focus new element
+  textInput.trigger("focus");
+});
+
+// editable field was un-focused
+$(".taskArea").on("blur", "p", function(){
+  // get current value of textarea
+  var text = $(this).val();
+
+  // get status type and position in the list
+  var status = $(this)
+    .closest(".list-group")
+    .attr("id")
+    .replace("list-", "");
+  var index = $(this)
+    .closest(".list-group-item")
+    .index();
+});
