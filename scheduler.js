@@ -10,7 +10,8 @@ currentDayElement.innerHTML = currentDate;
 // tasksfunction()
 
 // task text was clicked
-$("#taskArea").on("click", "p", function() {
+$(".border-primary").on("click", "p", function() {
+  console.log("area clicked")
   // get current text of p element
   var text = $(this)
     .text()
@@ -25,16 +26,16 @@ $("#taskArea").on("click", "p", function() {
 });
 
 // editable field was un-focused
-$("#taskArea").on("blur", "p", function(){
+$(".taskArea").on("blur", "p", function(){
   // get current value of textarea
   var text = $(this).val();
 
   // get status type and position in the list
   var status = $(this)
-    .closest("#taskArea")
+    .closest(".taskArea")
     .attr("id")
     .replace("list-", "");
   var index = $(this)
-    .closest("#taskArea-item")
+    .closest(".taskArea-item")
     .index();
 });
