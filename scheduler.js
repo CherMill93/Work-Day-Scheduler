@@ -11,7 +11,7 @@ var taskSaveArray = {}; //can this remain empty?
 //Press save button to save tasks
 var saveButton = document.getElementById('save')
 var saveTasks = function() {
-  taskSaveArray = JSON.parse(localStorage.getItem("border-primary")) //am I using "taskArea" correctly? "taskArea" is the location where the task is written in the HTML.
+  taskSaveArray = JSON.parse(localStorage.getItem("taskArea")) //am I using "taskArea" correctly? "taskArea" is the location where the task is written in the HTML.
   localStorage.setItem("taskArea", JSON.stringify(taskSaveArray))
   console.log("save button was successful")
 };
@@ -31,7 +31,7 @@ $(".taskArea").on("click", "p", function() {
     .trim();
 
   // replace p element with a new textarea
-  var textInput = $("<textarea>").addClass("newTask").val(text);
+  var textInput = $("<textarea>").addClass("taskArea").val(text);
   $(this).replaceWith(textInput);
 
   // auto focus new element
@@ -39,7 +39,7 @@ $(".taskArea").on("click", "p", function() {
 });
 
 // editable field was un-focused
-$(".taskArea").on("blur", "p", function(){
+$(".taskArea").on("blur", "textarea", function(){
   // get current value of textarea
   var text = $(this).val();
 
@@ -47,8 +47,20 @@ $(".taskArea").on("blur", "p", function(){
   var status = $(this)
     .closest(".taskArea")
     .attr("id")
-    .replace("list-", "");
+    .replace("taskArea");
   var index = $(this)
     .closest(".taskArea-item")
     .index();
+
+  // update task in array and re-save to localstorage
+  taskSaveArray[status][index].text = text;
+  saveTasks();
+
+  // recreate p element
+  var taskP = $("<p>")
+    .addClass("col w-70 border border-primary taskArea")
+    .text(text);
+
+  // replace textarea with new content
+  $(this).replaceWith(taskP);
 });
