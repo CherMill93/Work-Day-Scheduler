@@ -6,11 +6,24 @@ var currentDate = moment().format('MMMM Do YYYY');
 currentDayElement.innerHTML = currentDate;
 
 
-// var tasks = document.getElementById('taskArea')
-// tasksfunction()
+var taskSaveArray = {}; //can this remain empty? 
+
+//Press save button to save tasks
+var saveButton = document.getElementById('save')
+var saveTasks = function() {
+  taskSaveArray = json.parse(localStorage.getItem("border-primary")) //am I using "taskArea" correctly? "taskArea" is the location where the task is written in the HTML.
+  localStorage.setItem("taskArea", json.stringify(taskSaveArray))
+  console.log("save button was successful")
+};
+
+saveButton.addEventListener("click", saveTasks); //THis is supposed to run the save function when the save button is pressed. Setup correctly?
+
+//save tasks end
+
+
 
 // task text was clicked
-$(".border-primary").on("click", "p", function() {
+$(".taskArea").on("click", "p", function() {
   console.log("area clicked")
   // get current text of p element
   var text = $(this)
