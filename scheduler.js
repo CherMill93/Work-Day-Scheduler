@@ -11,8 +11,8 @@ var taskSaveArray = {}; //can this remain empty?
 //Press save button to save tasks
 var saveButton = document.getElementById('save')
 var saveTasks = function() {
-  taskSaveArray = json.parse(localStorage.getItem("border-primary")) //am I using "taskArea" correctly? "taskArea" is the location where the task is written in the HTML.
-  localStorage.setItem("taskArea", json.stringify(taskSaveArray))
+  taskSaveArray = JSON.parse(localStorage.getItem("border-primary")) //am I using "taskArea" correctly? "taskArea" is the location where the task is written in the HTML.
+  localStorage.setItem("taskArea", JSON.stringify(taskSaveArray))
   console.log("save button was successful")
 };
 
