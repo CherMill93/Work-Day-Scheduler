@@ -24,7 +24,7 @@ var taskSaveObject = {taskArea: []}; //can this remain empty? THis is an object,
 //Press save button to save tasks
 var saveButton = document.getElementById('save')
 var saveTasks = function() {
-  taskSaveObject = JSON.parse(localStorage.getItem("taskArea")) //am I using "taskArea" correctly? "taskArea" is the location where the task is written in the HTML.
+  taskSaveObject = JSON.parse(localStorage.getItem("taskArea")) //am I using "taskArea" correctly? "taskArea" is the location where the task is written in the HTML. redundant
   localStorage.setItem("taskArea", JSON.stringify(taskSaveObject))
   console.log("save button was successful")
 };
@@ -63,12 +63,13 @@ $(".taskArea").on("blur", "textarea", function(){
     .attr("id")
     .replace("taskArea");
   var index = $(this)
-    .closest(".taskArea-item")
+    .closest("taskArea-item")
     .index();
 
   // update task in array and re-save to localstorage
   console.log("task save area", JSON.stringify(taskSaveObject));
-  taskSaveObject[status][index].text = text;
+  
+  taskSaveObject.taskArea[index].text = text;
   saveTasks();
 
   // recreate p element
