@@ -6,13 +6,26 @@ var currentDate = moment().format('MMMM Do YYYY');
 currentDayElement.innerHTML = currentDate;
 
 
-var taskSaveArray = {}; //can this remain empty? 
+var taskSaveObject = {taskArea: []}; //can this remain empty? THis is an object, not an array
+
+// if nothing in localStorage, create a new object to track all task status arrays
+// if (!taskSaveObject) {
+//   taskSaveObject = {
+//     taskArea: [],
+//   };
+//   $.each(taskSaveObject, function(list, arr) {
+//     // then loop over sub-array
+//     arr.forEach(function(task) {
+//       saveTasks(task.text, task.date, list);
+//     });
+//   });
+// }
 
 //Press save button to save tasks
 var saveButton = document.getElementById('save')
 var saveTasks = function() {
-  taskSaveArray = JSON.parse(localStorage.getItem("taskArea")) //am I using "taskArea" correctly? "taskArea" is the location where the task is written in the HTML.
-  localStorage.setItem("taskArea", JSON.stringify(taskSaveArray))
+  taskSaveObject = JSON.parse(localStorage.getItem("taskArea")) //am I using "taskArea" correctly? "taskArea" is the location where the task is written in the HTML.
+  localStorage.setItem("taskArea", JSON.stringify(taskSaveObject))
   console.log("save button was successful")
 };
 
@@ -31,7 +44,7 @@ $(".taskArea").on("click", "p", function() {
     .trim();
 
   // replace p element with a new textarea
-  var textInput = $("<textarea>").addClass("taskArea").val(text);
+  var textInput = $("<textarea>").addClass("taskArea").attr("id","textSpace").val(text);
   $(this).replaceWith(textInput);
 
   // auto focus new element
@@ -44,6 +57,7 @@ $(".taskArea").on("blur", "textarea", function(){
   var text = $(this).val();
 
   // get status type and position in the list
+  console.log('taskArea element', $(this).closest(".taskArea"));
   var status = $(this)
     .closest(".taskArea")
     .attr("id")
@@ -53,7 +67,8 @@ $(".taskArea").on("blur", "textarea", function(){
     .index();
 
   // update task in array and re-save to localstorage
-  taskSaveArray[status][index].text = text;
+  console.log("task save area", JSON.stringify(taskSaveObject));
+  taskSaveObject[status][index].text = text;
   saveTasks();
 
   // recreate p element
