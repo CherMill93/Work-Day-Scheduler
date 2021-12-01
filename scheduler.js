@@ -9,7 +9,8 @@
 var currentDayElement = document.getElementById('currentDay');
 var currentDate = moment().format('MMMM Do YYYY');
 currentDayElement.innerHTML = currentDate;
-
+var currentHour = moment().hour()
+console.log(currentHour);
 
 
 // task text was clicked - I want this area to be rewritten and integrated into the save button
@@ -24,4 +25,11 @@ $(".save").on("click", function() {
 
 for(var i=8; i<= 20; i++){
   $("#taskSpace-"+ i).val(localStorage.getItem(i))
+  if(i<currentHour){
+    $("#taskSpace-"+ i).addClass("bg-danger")
+  } else if(i===currentHour){
+    $("#taskSpace-"+ i).addClass("bg-warning")
+  } else{
+    $("#taskSpace-"+ i).addClass("bg-success")
+  }
 }
