@@ -47,7 +47,7 @@ $(".save").on("click", function() {
   // get current text of p element
   var text = $("#taskSpace-"+timeBlock).val().trim();
   console.log(text, timeBlock);
-
+  localStorage.setItem(timeBlock, text);
   // replace p element with a new textarea
   // var textInput = $("<textarea>").addClass("taskArea").attr("id","textSpace").val(text);
   // $(this).replaceWith(textInput);
